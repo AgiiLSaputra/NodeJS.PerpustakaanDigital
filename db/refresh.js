@@ -20,8 +20,12 @@ const pool = new Pool({
 async function main() {
   const started = Date.now();
   await pool.query("REFRESH MATERIALIZED VIEW mv_loan_stats");
-  const { rows } = await pool.query("SELECT COUNT(*)::int AS n FROM mv_loan_stats");
-  console.log(`[refresh] mv_loan_stats disegarkan (${rows[0].n} baris, ${Date.now() - started}ms).`);
+  const { rows } = await pool.query(
+    "SELECT COUNT(*)::int AS n FROM mv_loan_stats",
+  );
+  console.log(
+    `[refresh] mv_loan_stats disegarkan (${rows[0].n} baris, ${Date.now() - started}ms).`,
+  );
   await pool.end();
 }
 
